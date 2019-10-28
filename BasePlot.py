@@ -5,4 +5,11 @@ from matplotlib import pyplot
 
 # csv in einen dataframe einlesen
 ts = pd.read_csv("19.06.20_travels_Frankfurt.csv", header=0, index_col=0)
-pyplot.plot(ts)
+
+# Spalte mit Passagieren extrahieren und in eine Liste konvertieren
+TAc = ts["TAc"]
+TAcList = TAc.values.tolist()
+
+pyplot.plot(TAcList)
+pyplot.show()
+
