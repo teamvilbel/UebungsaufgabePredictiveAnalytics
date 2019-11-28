@@ -49,6 +49,12 @@ delayInMinutesC = "TAc"
 # csv in einen dataframe einlesen
 df = pd.read_csv("19.06.20_travels_Frankfurt.csv", header=0, index_col=0, na_values=[""])
 
+ # löschen der ungültigen DS
+df = df[dataset[delayInMinutesC] < -1]
+
+# löschen der ausgefallenen Fahrten
+df = df[dataset[alertC] != ' Fahrt fällt aus'] 
+
 # print("x ", df[delayHourC])
 
 # Show missing data as matrix
