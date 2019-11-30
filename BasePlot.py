@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pandas as pd
 from matplotlib import pyplot
@@ -6,6 +7,13 @@ import missingno as msno
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.preprocessing import StandardScaler
 import numpy as np  # linear algebra
+
+# keine truncation für numpy
+np.set_printoptions(threshold=sys.maxsize)
+# keine truncation für pandas
+pd.set_option('display.max_columns', None)
+pd.set_option('display.width', None)
+pd.set_option('display.max_colwidth', -1)
 
 # CSV Collums TAA,TA,TIN,TIR,TSI,TIM,TIL,TIRE,TIP,TIT,TID,TSC,TAc
 columns = ["TAA", "TA", "TIN", "TIR", "TSI", "TIM", "TIL", "TIRE", "TIP", "TIT", "TID", "TSC", "TAc"]
@@ -81,25 +89,24 @@ print("Befor preprocessing:");
 print(f'There are {nRow} rows and {nCol} columns');
 
 # Format Times ?
-# df['TA'] = pd.to_datetime(df['TA'], format='%H:%M:%S').dt.time
-# df['TIT'] = pd.to_datetime(df['TIT'], format='%H:%M:%S').dt.time
+df['TA'] = pd.to_datetime(df['TA'], format='%H:%M').dt.time
+df['TIT'] = pd.to_datetime(df['TIT'], format='%H:%M').dt.time
 
 # löschen der ungültigen DS
 df[delayInMinutesC] = df[delayInMinutesC].astype(int);
 df[delayInMinutesC] = df[df[delayInMinutesC] >= 0];
 
 # löschen der ausgefallenen Fahrten
-# df = df[df["TAA"] != ' Fahrt fällt aus'];
 df = df[df.TAA != ' Fahrt fällt aus'];
-df.drop('TAA', axis=1);
+df = df.drop('TAA', axis=1);
 
 
 
 nRow, nCol = df.shape;
 print("After preprocessing:");
 print(f'There are {nRow} rows and {nCol} columns');
-print(df)
-# plotPerColumnDistribution(df)
+x = df.describe(include='all')
+print('Description:');
+print(x)
 
-df.boxplot();
-pyplot.show();
+
