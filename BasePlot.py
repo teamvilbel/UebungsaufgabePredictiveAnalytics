@@ -61,7 +61,7 @@ delayInMinutesC = "TAc"
 # df = pd.read_csv("19.06.20_travels_Frankfurt.csv", header=0, index_col=0, na_values=[""])
 '''
 0 TAA   Nicht relevant
-1 TA    Nur für die Berechnung fehlender Werte 
+1 TA    Nur für die Berechnung fehlender Werte
 2 TIN   One-Hot-Encoding für die Linien (BSP.)
 3 TIR   Nur relevant für erweiterte Auswertungen (Verspätungen anhand von Zwichenstationen)
 4 TSI   Nicht relevant da alle Daten von uns immer von Frankfurt aus sind
@@ -153,17 +153,17 @@ print(f'There are {nRow} rows and {nCol} columns');
 x = df.describe(include='all')
 print('Description:');
 print(x)
-# # Anz Fahrten pro End-Bahnhof
-# df['TIRE'].hist(bins=12, xrot=90, xlabelsize=10, figsize=(20,10))
-# pyplot.title("tire");
-# pyplot.savefig("img/TIRE", bbox_inches="tight")
-# pyplot.show()
-#
-# # Anz Fahrten pro Gleis
-# df['TIP'].hist(bins=12, xrot=90, xlabelsize=10, figsize=(20,10))
-# pyplot.title("TIP");
-# pyplot.savefig("img/TIP", bbox_inches="tight")
-# pyplot.show()
+# Anz Fahrten pro End-Bahnhof
+df['TIRE'].hist(bins=12, xrot=90, xlabelsize=10, figsize=(20,10))
+pyplot.title("tire");
+pyplot.savefig("img/TIRE", bbox_inches="tight")
+pyplot.show()
+
+# Anz Fahrten pro Gleis
+df['TIP'].hist(bins=12, xrot=90, xlabelsize=10, figsize=(20,10))
+pyplot.title("TIP");
+pyplot.savefig("img/TIP", bbox_inches="tight")
+pyplot.show()
 
 max_tin = df['TIN'].value_counts().max()
 min_tin = df['TIN'].value_counts().min()
